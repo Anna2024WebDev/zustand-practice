@@ -1,15 +1,17 @@
 import { useState } from "react"
+import { useUserStore } from "../stores/useUserStore"
 
 export const Users = () => {
-  const [newUser, setNewUser] = useState({ name: "", email: "" })
+  const [newUser, setNewUser] = useState({ name: "", email: "" });
+  const users = useUserStore((state) => state.users);
+  const addUser = useUserStore((state) => state.addUser);
+  const removeUser = useUserStore((state) => state.removeUser);
 
-  const users = [
-    { id: 1, name: "John Doe", email: "john@example.com" },
-    { id: 2, name: "Jane Smith", email: "jane@example.com" }
-  ]
 
   const handleAddUser = () => {
     //Here we will add the user to the store
+    addUser(newUser);
+    setNewUser({ name: "", email: "" })
   }
 
   return (
